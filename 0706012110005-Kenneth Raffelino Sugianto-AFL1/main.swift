@@ -13,11 +13,23 @@ var nameInput : String = ""
 var choiceInput : String = "r"
 var enterInput : String = "r"
 var userHP : Int = 100
-var enemyHP : Int = 1000
+var trollHP : Int = 1000
+var golemHP : Int = 1000
 var userMP : Int = 50
 var potions : Int = 20
 var potionsInput : String = ""
+var actionInput : String = ""
+var enemyName : String = ""
+var enemyHP : Int = 1000
 
+var skills : [String] = []
+skills.append("Physical Attack")
+skills.append("Meteor")
+skills.append("Shield")
+
+var enemy : [String] = []
+enemy.append("Troll")
+enemy.append("Golem")
 
 while(openingInput.isEmpty == false){
     print("Welcome to the world of magic! 🧙‍♂️🧌")
@@ -62,6 +74,7 @@ func journeyScreen(){
         print("Your choice?")
         choiceInput = readLine()!
         
+        
         if (choiceInput.caseInsensitiveCompare("c") == .orderedSame){
                 print("you chose C")
                 playerStats()
@@ -70,11 +83,26 @@ func journeyScreen(){
                 print("you chose H")
                 healPotion()
                 
-            }else if (choiceInput.caseInsensitiveCompare("h") == .orderedSame){
+            }else if (choiceInput.caseInsensitiveCompare("f") == .orderedSame){
                 print("you chose F")
-                trollScreen()
-            }else if (choiceInput.caseInsensitiveCompare("h") == .orderedSame){
+                for loopname in enemy{
+                    if loopname == "Troll" {
+                        print("As you enter the forest, you feel a sense of unease wash over you.")
+                        print("Suddenly, you hear the sound of twigs snapping behind you. You quickly spin around, and find a Troll emerging from the shadows.")
+                        enemyName = loopname
+                        warScreen()
+                    }
+                }
+            }else if (choiceInput.caseInsensitiveCompare("m") == .orderedSame){
                 print("you chose M")
+                for loopname in enemy{
+                    if loopname == "Golem" {
+                        print("As you make your way through the rugged mountain terrain, you can feel the chill of the wind biting at your skin.")
+                        print("Suddenly, you hear the sound that makes you freeze in your tracks. That's when you see it - a massive, snarling Golem emerging from the shadows.")
+                        enemyName = loopname
+                        warScreen()
+                    }
+                }
             } else if (choiceInput.caseInsensitiveCompare("q") == .orderedSame){
                 print("Thankyou for playing")
                 break
@@ -145,13 +173,15 @@ func healPotion(){
     
 }
 
-func trollScreen(){
+func warScreen(){
     
-    print("As you enter the forest, you feel a sense of unease wash over you.")
+    
+    
+        print("As you enter the forest, you feel a sense of unease wash over you.")
         print("Suddenly, you hear the sound of twigs snapping behind you. You quickly spin around, and find a Troll emerging    from the shadows.")
         
         print("""
-        \n😈Name: Troll x1
+        \n😈Name: \(enemyName)
         😈Health: \(enemyHP)
         """)
         
@@ -167,15 +197,133 @@ func trollScreen(){
         
         Your choice?
         """)
-}
-
-func choosenH(){
+        actionInput = readLine()!
+        switch actionInput {
+        case "1":
+            enemyHP = enemyHP - 5
+            userHP -= 10
+            
+            if userHP <= 0 {
+                print("Player dead, you lose, returning to home")
+                userHP = 100
+                userMP = 50
+                journeyScreen()
+                
+            } else {
+                print("You attacked the \(enemyName), you dealt 5pt of damage")
+                
+                if enemyHP > 0 {
+                    warScreen()
+                } else {
+                    print("You killed the monster. Great job!")
+                    enemyHP = 1000
+                }
+            }
+            
+        case "2":
+            if userHP <= 0 {
+                print("Player dead, you lose, returning to home")
+                userHP = 100
+                userMP = 50
+                journeyScreen()
+                
+            } else {
+                if userMP >= 15 {
+                    print("You attacked the \(enemyName) with meteor")
+                    userMP = userMP - 15
+                    enemyHP = enemyHP - 50
+                    userHP -= 10
+                    if userHP <= 0 {
+                        print("Player dead, you lose, returning to home")
+                        journeyScreen()
+                        userHP = 100
+                    } else {
+                        print("You attacked the \(enemyName), you dealt 50pt of damage, use 15pt of MP")
+                        
+                        if enemyHP > 0 {
+                            warScreen()
+                        } else {
+                            print("You killed the monster. Great job!")
+                            enemyHP = 1000
+                        }
+                    }
+                } else{
+                    print("Your MP is not enough to use this action")
+                }
+            }
+            
+            
+        case "3":
+            print("Using shield, use 10pt MP")
+            userMP = userMP - 10
+            warScreen()
+        case "4":
+            print("Your HP is \(userHP).")
+            print("You have \(potions) Potions")
+            
+            print("Are you sure want to use 1 potion to heal wound? [Y/N]")
+            potionsInput = readLine()!.lowercased()
+            switch potionsInput{
+            case "y" :
+                if (potions>0){
+                    if(userHP<100){
+                        userHP=userHP+20
+                        if (userHP>=100){
+                            userHP=100
+                            print("Your HP is now full")
+                        }
+                        potions = potions-1
+                        print("You used 1 potion, you have")
+                    }else {
+                        print("Your HP still full")
+                        print("Press[return] to go back")
+                        
+                        var hpMax = readLine()!
+                        switch hpMax{
+                        case "":
+                            warScreen()
+                        default:
+                            print("Click enter")
+                        }
+                    }
+                    
+                    print("Your HP now: \(userHP)")
+                    print("You have \(potions) potions left.")
+                }else{
+                    print("You don't have any potion left. Be careful of your next journey.")
+                }
+                
+            case "n":
+                print("Okay returning..")
+                break
+            default:
+                print("Press Y/N only")
+            }
+        case "5":
+            print("")
+        case "6":
+            fleeBattle()
+        default:
+            print("Invalid choice, pick again.")
+            warScreen()
+        }
+    
     
 }
 
-func choosenF(){
-    
+func fleeBattle() {
+    print("You feel that if you don't escape soon, you won't be able to continue the fight.")
+        print("You look around frantically, searching for a way out. You sprint towards the exit, your heart pounding in your chest.")
+        print("You're safe, for now.")
+        print("Press [return] to continue.")
+        let fleeInput = readLine()!
+        switch fleeInput {
+        case "" :
+            journeyScreen()
+        default :
+            print("Just click enter.")
+            enemyHP = 1000
+            fleeBattle()
+        }
 }
-func choosenM(){
-    
-}
+

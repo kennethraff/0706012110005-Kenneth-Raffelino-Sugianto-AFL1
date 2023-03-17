@@ -32,6 +32,7 @@ var enemy : [String] = []
 enemy.append("Troll")
 enemy.append("Golem")
 
+//welkam page
 while(openingInput.isEmpty == false){
     print("Welcome to the world of magic! 🧙‍♂️🧌")
     print("""
@@ -47,22 +48,26 @@ while(openingInput.isEmpty == false){
     }
 }
 
+awalPol()
 
-while(nameInput.isEmpty){
-    print("\nMay I know your name, a young wizard?")
-    nameInput = readLine()!
-    
-    //Biar cuman bisa input huruf
-    while nameInput == nil || nameInput.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
-        print("Invalid input. Please re-enter letters only:")
+func awalPol(){
+    //input nama
+    while(nameInput.isEmpty){
+        print("\nMay I know your name, a young wizard?")
         nameInput = readLine()!
         
-        
+        //Biar cuman bisa input huruf
+        while nameInput == nil || nameInput.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
+            print("Invalid input. Please re-enter letters only:")
+            nameInput = readLine()!
+            
+            
+        }
     }
-}
-    print(" Nice to meet you \(nameInput)")
+        print(" Nice to meet you \(nameInput)")
 
-journeyScreen()
+    journeyScreen()
+}
 
 func journeyScreen(){
     while(choiceInput != "q"){
@@ -74,10 +79,11 @@ func journeyScreen(){
         print("\n[F]orest of Troll")
         print("[M]ountain of Golem")
         print("[Q]uit game")
+        print("[R]estart Game")
         print("Your choice?")
         choiceInput = readLine()!
         
-        
+        // sejenis equalIgnoreCase cuman ketemu nya ini
         if (choiceInput.caseInsensitiveCompare("c") == .orderedSame){
                 print("you chose C")
                 playerStats()
@@ -88,9 +94,14 @@ func journeyScreen(){
                 
             }
             else if (choiceInput.caseInsensitiveCompare("a") == .orderedSame){
-                print("you chose H")
+                print("you chose A")
                 addElixir()
             
+            }
+            else if (choiceInput.caseInsensitiveCompare("r") == .orderedSame){
+                print("you chose R")
+                restartt()
+        
             }else if (choiceInput.caseInsensitiveCompare("f") == .orderedSame){
                 print("you chose F")
                 for loopname in enemy{
@@ -117,7 +128,7 @@ func journeyScreen(){
             }
     }
 }
-
+//player stats
 func playerStats(){
     
         print("\nPlayer name: \(nameInput)")
@@ -135,7 +146,7 @@ func playerStats(){
         }
     
 }
-
+//potion buat yang chose awal
 func healPotion(){
     print("Your HP is \(userHP).")
     print("You have \(potions) Potions")
@@ -175,6 +186,8 @@ func healPotion(){
     case "n":
         print("Okay returning..")
         break
+        
+        //kalo ga pencet y ato n ngelooooop
     default:
         print("Press Y/N only")
         healPotion()
@@ -343,6 +356,7 @@ func healingv2 (){
         healingv2()
     }
 }
+//yg A add MP
 func addElixir(){
     if userElixir <= 0{
         print("Sorry your elixir ran out")
@@ -358,4 +372,15 @@ func addElixir(){
         
         
     }
+}
+func restartt (){
+    userHP = 100
+    trollHP = 1000
+    golemHP = 1000
+    userMP  = 50
+    potions  = 20
+    enemyHP  = 1000
+    userElixir  = 5
+    nameInput = ""
+    awalPol()
 }

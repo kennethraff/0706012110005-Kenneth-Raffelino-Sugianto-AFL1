@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+//inisiasi
 var openingInput: String = "h"
 var statsInput: String = "c"
 var nameInput : String = ""
@@ -21,6 +21,7 @@ var potionsInput : String = ""
 var actionInput : String = ""
 var enemyName : String = ""
 var enemyHP : Int = 1000
+var userElixir : Int = 5
 
 var skills : [String] = []
 skills.append("Physical Attack")
@@ -51,6 +52,7 @@ while(nameInput.isEmpty){
     print("\nMay I know your name, a young wizard?")
     nameInput = readLine()!
     
+    //Biar cuman bisa input huruf
     while nameInput == nil || nameInput.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
         print("Invalid input. Please re-enter letters only:")
         nameInput = readLine()!
@@ -67,6 +69,7 @@ func journeyScreen(){
         print("\nFrom here you can...")
         print("\n[C]heck your health and stats")
         print("[H]eal your wounds with potion")
+        print("[A]dd MP")
         print("\n...or choose where you want to go")
         print("\n[F]orest of Troll")
         print("[M]ountain of Golem")
@@ -83,6 +86,11 @@ func journeyScreen(){
                 print("you chose H")
                 healPotion()
                 
+            }
+            else if (choiceInput.caseInsensitiveCompare("a") == .orderedSame){
+                print("you chose H")
+                addElixir()
+            
             }else if (choiceInput.caseInsensitiveCompare("f") == .orderedSame){
                 print("you chose F")
                 for loopname in enemy{
@@ -169,6 +177,7 @@ func healPotion(){
         break
     default:
         print("Press Y/N only")
+        healPotion()
     }
     
 }
@@ -261,48 +270,14 @@ func warScreen(){
             print("Your HP is \(userHP).")
             print("You have \(potions) Potions")
             
-            print("Are you sure want to use 1 potion to heal wound? [Y/N]")
-            potionsInput = readLine()!.lowercased()
-            switch potionsInput{
-            case "y" :
-                if (potions>0){
-                    if(userHP<100){
-                        userHP=userHP+20
-                        if (userHP>=100){
-                            userHP=100
-                            print("Your HP is now full")
-                        }
-                        potions = potions-1
-                        print("You used 1 potion, you have")
-                    }else {
-                        print("Your HP still full")
-                        print("Press[return] to go back")
-                        
-                        var hpMax = readLine()!
-                        switch hpMax{
-                        case "":
-                            warScreen()
-                        default:
-                            print("Click enter")
-                        }
-                    }
-                    
-                    print("Your HP now: \(userHP)")
-                    print("You have \(potions) potions left.")
-                }else{
-                    print("You don't have any potion left. Be careful of your next journey.")
-                }
-                
-            case "n":
-                print("Okay returning..")
-                break
-            default:
-                print("Press Y/N only")
-            }
+            healingv2()
         case "5":
-            print("")
+            print("Enemy Name:\(enemyName)")
+            print("Enemy HP:\(enemyHP)")
+            print("You also using 5pt of HP for scanning enemy")
+            userHP -= 5
         case "6":
-            fleeBattle()
+            exitBattle()
         default:
             print("Invalid choice, pick again.")
             warScreen()
@@ -311,7 +286,7 @@ func warScreen(){
     
 }
 
-func fleeBattle() {
+func exitBattle() {
     print("You feel that if you don't escape soon, you won't be able to continue the fight.")
         print("You look around frantically, searching for a way out. You sprint towards the exit, your heart pounding in your chest.")
         print("You're safe, for now.")
@@ -323,7 +298,64 @@ func fleeBattle() {
         default :
             print("Just click enter.")
             enemyHP = 1000
-            fleeBattle()
+            exitBattle()
         }
 }
 
+func healingv2 (){
+    print("Are you sure want to use 1 potion to heal wound? [Y/N]")
+    potionsInput = readLine()!.lowercased()
+    switch potionsInput{
+    case "y" :
+        if (potions>0){
+            if(userHP<100){
+                userHP=userHP+20
+                if (userHP>=100){
+                    userHP=100
+                    print("Your HP is now full")
+                }
+                potions = potions-1
+                print("You used 1 potion, you have")
+            }else {
+                print("Your HP still full")
+                print("Press[return] to go back")
+                
+                let hpMax = readLine()!
+                switch hpMax{
+                case "":
+                    warScreen()
+                default:
+                    print("press enter")
+                }
+            }
+            
+            print("Your HP now: \(userHP)")
+            print("You have \(potions) potions left.")
+        }else{
+            print("You don't have any potion left. Be careful of your next journey.")
+        }
+        
+    case "n":
+        print("Okay returning..")
+        break
+    default:
+        print("Press Y/N only")
+        healingv2()
+    }
+}
+func addElixir(){
+    if userElixir <= 0{
+        print("Sorry your elixir ran out")
+    } else {
+        if userMP > 50 {
+            print("Your MP is full")
+        } else{
+            userElixir -= 1
+            userMP += 10
+            print("You using 1 elixir, \(userElixir) more left!")
+            print("Your MP is now at \(userMP)")
+        }
+        
+        
+    }
+}

@@ -194,7 +194,7 @@ func healPotion(){
     }
     
 }
-
+//yg war
 func warScreen(){
     
     
@@ -298,7 +298,7 @@ func warScreen(){
     
     
 }
-
+//buat exit
 func exitBattle() {
     print("You feel that if you don't escape soon, you won't be able to continue the fight.")
         print("You look around frantically, searching for a way out. You sprint towards the exit, your heart pounding in your chest.")
@@ -314,7 +314,7 @@ func exitBattle() {
             exitBattle()
         }
 }
-
+//buat hiling yg di dalam
 func healingv2 (){
     print("Are you sure want to use 1 potion to heal wound? [Y/N]")
     potionsInput = readLine()!.lowercased()
@@ -373,6 +373,7 @@ func addElixir(){
         
     }
 }
+//buat restart
 func restartt (){
     userHP = 100
     trollHP = 1000

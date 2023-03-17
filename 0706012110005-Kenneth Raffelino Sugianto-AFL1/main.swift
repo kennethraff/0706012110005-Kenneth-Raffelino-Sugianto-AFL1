@@ -55,20 +55,15 @@ func awalPol(){
     while(nameInput.isEmpty){
         print("\nMay I know your name, a young wizard?")
         nameInput = readLine()!
-        
         //Biar cuman bisa input huruf
-        while nameInput == nil || nameInput.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
+        while nameInput.isEmpty || nameInput.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
             print("Invalid input. Please re-enter letters only:")
             nameInput = readLine()!
-            
-            
         }
     }
         print(" Nice to meet you \(nameInput)")
-
     journeyScreen()
 }
-
 func journeyScreen(){
     while(choiceInput != "q"){
         print("\nFrom here you can...")
@@ -82,7 +77,6 @@ func journeyScreen(){
         print("[R]estart Game")
         print("Your choice?")
         choiceInput = readLine()!
-        
         // sejenis equalIgnoreCase cuman ketemu nya ini
         if (choiceInput.caseInsensitiveCompare("c") == .orderedSame){
                 print("you chose C")
@@ -91,17 +85,14 @@ func journeyScreen(){
             } else if (choiceInput.caseInsensitiveCompare("h") == .orderedSame){
                 print("you chose H")
                 healPotion()
-                
             }
             else if (choiceInput.caseInsensitiveCompare("a") == .orderedSame){
                 print("you chose A")
                 addElixir()
-            
             }
             else if (choiceInput.caseInsensitiveCompare("r") == .orderedSame){
                 print("you chose R")
                 restartt()
-        
             }else if (choiceInput.caseInsensitiveCompare("f") == .orderedSame){
                 print("you chose F")
                 for loopname in enemy{
@@ -130,7 +121,6 @@ func journeyScreen(){
 }
 //player stats
 func playerStats(){
-    
         print("\nPlayer name: \(nameInput)")
         print("HP : \(userHP)/100")
         print("MP : \(userMP)/50")
@@ -141,7 +131,7 @@ func playerStats(){
         case "" :
             journeyScreen()
         default:
-            print("Click enter")
+            print("Click [ENTER]")
             playerStats()
         }
     
@@ -182,7 +172,6 @@ func healPotion(){
         }else{
             print("You don't have any potion left. Be careful of your next journey.")
         }
-        
     case "n":
         print("Okay returning..")
         break
@@ -194,7 +183,7 @@ func healPotion(){
     }
     
 }
-//yg war
+
 func warScreen(){
     
     

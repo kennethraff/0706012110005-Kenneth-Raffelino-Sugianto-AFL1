@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0492E76629AD9E4500E9C3AB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492E76529AD9E4500E9C3AB /* main.swift */; };
+		04C2AFE529DD13EF00F4BFBE /* monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFE429DD13EF00F4BFBE /* monster.swift */; };
+		04C2AFE729DD142300F4BFBE /* potions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFE629DD142300F4BFBE /* potions.swift */; };
+		04C2AFEB29DD144E00F4BFBE /* skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFEA29DD144E00F4BFBE /* skill.swift */; };
+		04C2AFED29DD146700F4BFBE /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFEC29DD146700F4BFBE /* user.swift */; };
+		04C2AFF129DD6FB200F4BFBE /* enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFF029DD6FB200F4BFBE /* enemy.swift */; };
+		04C2AFF529DE63E400F4BFBE /* shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFF429DE63E400F4BFBE /* shield.swift */; };
+		04C2AFF729DE644400F4BFBE /* hitAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2AFF629DE644400F4BFBE /* hitAttack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +32,13 @@
 /* Begin PBXFileReference section */
 		0492E76229AD9E4500E9C3AB /* 0706012110005-Kenneth Raffelino Sugianto-AFL1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "0706012110005-Kenneth Raffelino Sugianto-AFL1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0492E76529AD9E4500E9C3AB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		04C2AFE429DD13EF00F4BFBE /* monster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monster.swift; sourceTree = "<group>"; };
+		04C2AFE629DD142300F4BFBE /* potions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = potions.swift; sourceTree = "<group>"; };
+		04C2AFEA29DD144E00F4BFBE /* skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = skill.swift; sourceTree = "<group>"; };
+		04C2AFEC29DD146700F4BFBE /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		04C2AFF029DD6FB200F4BFBE /* enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = enemy.swift; sourceTree = "<group>"; };
+		04C2AFF429DE63E400F4BFBE /* shield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shield.swift; sourceTree = "<group>"; };
+		04C2AFF629DE644400F4BFBE /* hitAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hitAttack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +72,13 @@
 			isa = PBXGroup;
 			children = (
 				0492E76529AD9E4500E9C3AB /* main.swift */,
+				04C2AFE429DD13EF00F4BFBE /* monster.swift */,
+				04C2AFE629DD142300F4BFBE /* potions.swift */,
+				04C2AFEA29DD144E00F4BFBE /* skill.swift */,
+				04C2AFEC29DD146700F4BFBE /* user.swift */,
+				04C2AFF029DD6FB200F4BFBE /* enemy.swift */,
+				04C2AFF429DE63E400F4BFBE /* shield.swift */,
+				04C2AFF629DE644400F4BFBE /* hitAttack.swift */,
 			);
 			path = "0706012110005-Kenneth Raffelino Sugianto-AFL1";
 			sourceTree = "<group>";
@@ -120,7 +141,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C2AFF529DE63E400F4BFBE /* shield.swift in Sources */,
+				04C2AFED29DD146700F4BFBE /* user.swift in Sources */,
+				04C2AFE529DD13EF00F4BFBE /* monster.swift in Sources */,
+				04C2AFF129DD6FB200F4BFBE /* enemy.swift in Sources */,
+				04C2AFEB29DD144E00F4BFBE /* skill.swift in Sources */,
 				0492E76629AD9E4500E9C3AB /* main.swift in Sources */,
+				04C2AFE729DD142300F4BFBE /* potions.swift in Sources */,
+				04C2AFF729DE644400F4BFBE /* hitAttack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

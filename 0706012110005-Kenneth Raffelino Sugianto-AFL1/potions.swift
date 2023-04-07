@@ -2,7 +2,7 @@
 //  potions.swift
 //  0706012110005-Kenneth Raffelino Sugianto-AFL1
 //
-//  Created by MacBook Pro on 05/04/23.
+//  Created by MacBook Pro on 27/03/23.
 //
 
 import Foundation
@@ -21,7 +21,7 @@ class healpotion : potions{
         super.init(potionsName: potionsName)
     }
     func usePotion(player:user){
-        heal -= 1
+        User.healP -= 1
         User.userHP += 20
         
     }
@@ -33,7 +33,7 @@ class elixirpotion : potions{
         super.init(potionsName: potionName)
     }
     func usePotion(player:user){
-        elixir -= 1
+        User.elixirP -= 1
         User.userMP += 10
     }
 }

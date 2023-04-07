@@ -13,14 +13,17 @@ var nameInput : String = ""
 var choiceInput : String = "r"
 var enterInput : String = "r"
 
-var User = user(userName: nameInput, userHP: 100, userMP: 50, multiplier: 1, healP: 10, elixirP: 5)
-var trollHP : Int = 1000
-var golemHP : Int = 1000
+var User = user(userName: nameInput, userHP: 100, userMP: 50, healP: 10, elixirP: 5)
 var potionsInput : String = ""
 var actionInput : String = ""
-var userElixir : Int = 5
-var enemyy = monster(monsterAttack: 0, monsterHealth: 0, monsterName: "", monsterType: "")
 
+var enemyy = monster(monsterAttack: 0, monsterHealth: 0, monsterName: "", monsterType: "")
+var phys = hitAttack(skillName: "Physical Attack", mpUsage: 0, damage: 5)
+var meteor = hitAttack(skillName: "Meteor", mpUsage: 15, damage: 50)
+var shield1 = shield(skillName: "Shield", mpUsage: 10, turn: 0)
+var scanEnemy = hitAttack(skillName: "Scan Enemy's Vital", mpUsage: 5,damage: 0)
+var elixirr = elixirpotion(potionName: "MP Elixir", elixir: User.elixirP)
+var potionn = healpotion(potionsName: "Heal Potion", heal: User.healP)
 
 var skills : [String] = []
 skills.append("Physical Attack")
@@ -31,9 +34,7 @@ skills.append("Shield")
 while(openingInput.isEmpty == false){
     print("Welcome to the world of magic! 🧙‍♂️🧌")
     print("""
-        \nYou have been chosen to embark on anepic journey as a young wizard on the path to becoming a master of the
-        arcane arts. Your adventures will take you through forests 🌲, mountains , and dungeons , where you will
-        face challenges, make allies, and fight enemies
+        \nYou have been chosen to embark on anepic journey as a young wizard on the path to becoming a master of the arcane arts. Your adventures will take you through forests 🌲, mountains , and dungeons , where you will face challenges, make allies, and fight enemies
     """)
 
     print("\nPress [return] to continue:")
@@ -95,7 +96,7 @@ func journeyScreen(){
                 print("Suddenly, you hear the sound of twigs snapping behind you. You quickly spin around, and find a Troll emerging from the shadows.")
                 enemyy.monsterDescription = "\nAs you enter the forest, you feel a sense of unease wash over you. Suddenly, you hear the sounds of twigs snapping behind you. You quickly spin around and find a troll emerging from the shadows"
                 enemyy.monsterName = "Troll"
-                var randomize = Int.random(in: 1...100)
+                let randomize = Int.random(in: 1...100)
                 enemyy.vsBoss(chance: randomize)
                 print("")
                 print(enemyy.printMonster)
@@ -107,14 +108,14 @@ func journeyScreen(){
                 print("Suddenly, you hear the sound that makes you freeze in your tracks. That's when you see it - a massive, snarling Golem emerging from the shadows.")
                 enemyy.monsterDescription = "\nAs you make your way through the rugged mountain terrain, you can feel the chill of wind biting your skin. Suddenly, you hear a sound that makes you freeze in the tracks. That's when you see it -  a massive snarling Golem emerging from the shadows."
                 enemyy.monsterName = "Golem"
-                var randomize = Int.random(in: 1...100)
+                let randomize = Int.random(in: 1...100)
                 enemyy.vsBoss(chance: randomize)
                 print("")
                 print(enemyy.printMonster)
                 warScreen()
             } else if (choiceInput.caseInsensitiveCompare("q") == .orderedSame){
                 print("Thankyou for playing")
-                break
+                exit(0)
             }
     }
 }
@@ -146,18 +147,17 @@ func healPotion(){
     case "y" :
         if (User.healP>0){
             if(User.userHP<100){
-                User.userHP=User.userHP+20
+                potionn.usePotion(player: User)
                 if (User.userHP>=100){
                     User.userHP=100
                     print("Your HP is now full")
                 }
-                User.healP = User.healP-1
                 print("You used 1 potion, you have")
             }else {
                 print("Your HP still full")
                 print("Press[return] to go back")
                 
-                var hpFull = readLine()!
+                let hpFull = readLine()!
                 switch hpFull{
                 case "":
                     journeyScreen()
@@ -201,8 +201,8 @@ func warScreen(){
         [2] Meteor. Use 15pt of MP. Deal 50pt of damage.
         [3] Shield. Use 10pt of MP. Block enemy's attack in 1 turn.
         
-        [4] Use Potion to heal wound.
-        [5] Scan enemy's vital.
+        [4] Use Potion to heal wound.     ==\(User.userHP)HP Left!==
+        [5] Scan enemy's vital.           ==\(User.userMP)MP Left!==
         [6] Flee from battle.
         
         Your choice?
@@ -210,9 +210,15 @@ func warScreen(){
         actionInput = readLine()!
         switch actionInput {
         case "1":
-            enemyy.monsterHealth =  enemyy.monsterHealth - 5
-            User.userHP -= 10
+//            enemyy.monsterHealth =  enemyy.monsterHealth - 5
+//            User.userHP -= 10
             
+            phys.useSKill(player: User, monster: enemyy)
+            print("You attacked the \(enemyy.monsterName), you dealt \(phys.damage) of damage")
+            enemyAtt()
+            if shield1.turn == 1{
+                shield1.isUp()
+            }
             if User.userHP <= 0 {
                 print("Player dead, you lose, returning to home")
                 User.userHP = 100
@@ -220,7 +226,7 @@ func warScreen(){
                 journeyScreen()
                 
             } else {
-                print("You attacked the \(enemyy.monsterName), you dealt 5pt of damage")
+                print("You attacked the \(enemyy.monsterName), you dealt \(phys.damage) of damage")
                 
                 if enemyy.monsterHealth > 0 {
                     warScreen()
@@ -231,6 +237,7 @@ func warScreen(){
             }
             
         case "2":
+            
             if User.userHP <= 0 {
                 print("Player dead, you lose, returning to home")
                 User.userHP = 100
@@ -240,9 +247,12 @@ func warScreen(){
             } else {
                 if User.userMP >= 15 {
                     print("You attacked the \(enemyy.monsterName) with meteor")
-                    User.userMP = User.userMP - 15
-                    enemyy.monsterHealth = enemyy.monsterHealth - 50
-                    User.userHP -= 10
+                    
+                    meteor.useSKill(player: User, monster: enemyy)
+                    enemyAtt()
+                    if shield1.turn == 1{
+                        shield1.isUp()
+                    }
                     if User.userHP <= 0 {
                         print("Player dead, you lose, returning to home")
                         journeyScreen()
@@ -264,9 +274,14 @@ func warScreen(){
             
             
         case "3":
-            print("Using shield, use 10pt MP")
-            User.userMP = User.userMP - 10
-            warScreen()
+            if shield1.turn == 1{
+                print("\nShield Already Active")
+            } else{
+                print("Using shield, use 10pt MP")
+                shield1.useSKill(player: User, monster: enemyy)
+                warScreen()
+            }
+            
         case "4":
             print("Your HP is \(User.userHP).")
             print("You have \(User.healP) Potions")
@@ -275,21 +290,20 @@ func warScreen(){
         case "5":
             print("Enemy Name:\(enemyy.monsterName)")
             print("Enemy HP:\(enemyy.monsterHealth)")
-            print("You also using 5pt of HP for scanning enemy")
-            User.userHP -= 5
+            print("You also using 5pt of MP for scanning enemy")
+            scanEnemy.useSKill(player: User, monster: enemyy)
         case "6":
             User.fleeBattle()
             let fleeInput = readLine()!
             switch fleeInput {
             case "" :
-                enemyy.monsterHealth = 1000
                 journeyScreen()
             default :
                 print("Just click enter.")
                 User.fleeBattle()
             }
         default:
-            print("Invalid choice, pick again.")
+            print("Invalid number, pick again.")
             warScreen()
         }
     
@@ -312,6 +326,17 @@ func warScreen(){
 //        }
 //}
 
+
+func enemyAtt(){
+    enemyy.enemyAttack(player: User)
+    if User.userHP <= 0 {
+        enemyy.enemyWin(player: User)
+        journeyScreen()
+    } else{
+        warScreen()
+    }
+}
+
 //buat hiling yg di dalam
 func healingv2 (){
     print("Are you sure want to use 1 potion to heal wound? [Y/N]")
@@ -320,12 +345,11 @@ func healingv2 (){
     case "y" :
         if (User.healP>0){
             if(User.userHP<100){
-                User.userHP=User.userHP+20
+                potionn.usePotion(player: User)
                 if (User.userHP>=100){
                     User.userHP=100
                     print("Your HP is now full")
                 }
-                User.healP = User.healP-1
                 print("You used 1 potion, you have")
             }else {
                 print("Your HP still full")
@@ -356,15 +380,18 @@ func healingv2 (){
 }
 //yg A add MP
 func addElixir(){
-    if userElixir <= 0{
+    if User.elixirP <= 0{
         print("Sorry your elixir ran out")
     } else {
-        if User.userMP > 50 {
+        if User.userMP >= 50 {
             print("Your MP is full")
         } else{
-            userElixir -= 1
-            User.userMP += 10
-            print("You using 1 elixir, \(userElixir) more left!")
+            elixirr.usePotion(player: User)
+            print("You using 1 elixir, \(User.elixirP) more left!")
+            if User.userMP >= 50 {
+                User.userMP=50
+                print("Your MP is now full")
+            }
             print("Your MP is now at \(User.userMP)")
         }
         
@@ -374,12 +401,11 @@ func addElixir(){
 //buat restart
 func restartt (){
     User.userHP = 100
-    trollHP = 1000
-    golemHP = 1000
+//    trollHP = 1000
+//    golemHP = 1000
     User.userMP  = 50
-    User.healP  = 20
-    enemyy.monsterHealth  = 1000
-    userElixir  = 5
+    User.healP  = 10
+    User.elixirP  = 5
     nameInput = ""
     awalPol()
 }

@@ -29,11 +29,11 @@ class monster: enemy {
 
     func vsBoss(chance: Int) {
         if chance > 75 {
-            monsterAttack = Int.random(in: 10...20)
+            monsterAttack = 15
             monsterHealth = 2000
             monsterType = "[Boss]"
         } else {
-            monsterAttack = Int.random(in: 5...10)
+            monsterAttack = 10
             monsterHealth = 500
             monsterType = "[Normal]"
         }
@@ -49,7 +49,11 @@ class monster: enemy {
         print("Returning you to the main menu")
         User.userHP = 20
         User.userMP = 10
-        User.multiplier = 1
+
+    }
+    
+    func enemyAttack(player: user){
+        User.userHP -= monsterAttack
     }
 }
 

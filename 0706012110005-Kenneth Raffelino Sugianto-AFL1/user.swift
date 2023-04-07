@@ -11,15 +11,15 @@ struct user{
     var userName: String
     var userHP: Int
     var userMP : Int
-    var multiplier : Int
+
     var healP: Int
     var elixirP:Int
     
-    init(userName: String, userHP: Int, userMP: Int,multiplier: Int, healP:Int,elixirP:Int) {
+    init(userName: String, userHP: Int, userMP: Int, healP:Int,elixirP:Int) {
         self.userName = userName
         self.userHP = userHP
         self.userMP = userMP
-        self.multiplier = multiplier
+
         self.healP = healP
         self.elixirP = elixirP
     }
@@ -29,12 +29,7 @@ struct user{
            print("\n\(userHP)/100")
            print("\(userMP)/50")
            
-           print("""
-           \nMagic:
-           - Physical Attack. No mana required. Deal 5pt of damage.
-           - Meteor. Use 15pt of MP. Deal 50pt of damage.
-           - Shield. Use 10pt of MP. Block enemy's attack in 1 turn.
-           """)
+           print("\nMagic:\n-Physical Attack. No mana required. Deal 5pt of damage.\n- Meteor. Use 15pt of MP. Deal 50pt of damage.\n- Shield. Use 10pt of MP. Block enemy's attack in 1 turn.")
            
            print("""
            \nItems:
@@ -44,15 +39,13 @@ struct user{
        }
        
        mutating func fleeBattle() {
+           print("You Chose Flee Battle")
            print("You feel that if you don't escape soon, you won't be able to continue the fight.")
            print("You look around frantically, searching for a way out. You sprint towards the exit, your heart pounding in your chest.")
            print("You're safe, for now.")
-           print("Press [return] to continue.")
            
-       }
-       
-       mutating func scanEnemy() {
-           multiplier = 2
+           print("Press [return] to continue:")
+           
        }
        
        mutating func playerWin() {

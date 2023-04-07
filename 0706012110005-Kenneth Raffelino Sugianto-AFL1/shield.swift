@@ -9,21 +9,21 @@ import Foundation
 class shield: skill{
     var turn: Int
         
-        init(skillName: String, mpUsage: Int, skillDesc: String, turn: Int) {
+        init(skillName: String, mpUsage: Int, turn: Int) {
             self.turn = turn
-            super.init(skillName: skillName, mpUsage: mpUsage, skillDesc: skillDesc)
+            super.init(skillName: skillName, mpUsage: mpUsage)
         }
+    
     
     override func useSKill(player: user, monster: monster) {
         super.useSKill(player: player, monster: monster)
         print("You use \(skillName)")
         turn = 1
-        print("Your shield is up now. It will run out in the next turn")
+        print("Shield Activated, until next turn")
     }
     
     func isUp(){
-        print("\nYou block the enemy's attack for this turn!")
-        print("Your shield is gone now!")
+        print("\nYou block the enemy attack turn")
         turn -= 1
         warScreen()
     }

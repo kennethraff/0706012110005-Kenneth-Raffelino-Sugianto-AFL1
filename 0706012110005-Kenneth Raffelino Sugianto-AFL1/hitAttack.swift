@@ -11,16 +11,14 @@ class hitAttack: skill{
     var damage: Int
     
         
-        init(skillName: String, mpUsage: Int, skillDesc: String, damage: Int) {
+        init(skillName: String, mpUsage: Int, damage: Int) {
             self.damage = damage
-            super.init(skillName: skillName, mpUsage: mpUsage, skillDesc: skillDesc)
+            super.init(skillName: skillName, mpUsage: mpUsage)
         }
+    
     
     override func useSKill(player: user, monster: monster) {
         super.useSKill(player: player, monster: monster)
-        print("\nYou attack your enemy using Meteor Attack!")
-        print("You deal \(damage*User.multiplier) Attack!")
-        print("it's very effective!")
-        monster.monsterHealth  -= damage*User.multiplier
+        monster.monsterHealth  -= damage
     }
 }

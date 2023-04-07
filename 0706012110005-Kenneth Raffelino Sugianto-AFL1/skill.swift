@@ -9,18 +9,10 @@ import Foundation
 class skill {
     var skillName: String
     var mpUsage: Int
-    var skillDesc: String
-    var printSKill: String{
-        return
-        """
-        - \(skillDesc)
-        """
-    }
-    
-    init(skillName: String, mpUsage: Int, skillDesc: String) {
+
+    init(skillName: String, mpUsage: Int) {
         self.skillName = skillName
         self.mpUsage = mpUsage
-        self.skillDesc = skillDesc
     }
         
     func useSKill(player: user, monster: monster){

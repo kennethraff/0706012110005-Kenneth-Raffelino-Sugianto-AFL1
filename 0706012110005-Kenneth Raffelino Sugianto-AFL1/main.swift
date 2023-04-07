@@ -17,7 +17,7 @@ var User = user(userName: nameInput, userHP: 100, userMP: 50, healP: 10, elixirP
 var potionsInput : String = ""
 var actionInput : String = ""
 
-var enemyy = monster(monsterAttack: 0, monsterHealth: 0, monsterName: "", monsterType: "")
+var enemyy = monster(monsterHit: 0, monsterHP: 0, monsterName: "", monsterType: "")
 var phys = hitAttack(skillName: "Physical Attack", mpUsage: 0, damage: 5)
 var meteor = hitAttack(skillName: "Meteor", mpUsage: 15, damage: 50)
 var shield1 = shield(skillName: "Shield", mpUsage: 10, turn: 0)
@@ -192,7 +192,7 @@ func warScreen(){
         
         print("""
         \n😈Name: \(enemyy.monsterName)
-        😈Health: \(enemyy.monsterHealth)
+        😈Health: \(enemyy.monsterHP)
         """)
         
         print("""
@@ -228,11 +228,11 @@ func warScreen(){
             } else {
                 print("You attacked the \(enemyy.monsterName), you dealt \(phys.damage) of damage")
                 
-                if enemyy.monsterHealth > 0 {
+                if enemyy.monsterHP > 0 {
                     warScreen()
                 } else {
                     print("You killed the monster. Great job!")
-                    enemyy.monsterHealth = 1000
+                    enemyy.monsterHP = 1000
                 }
             }
             
@@ -260,11 +260,11 @@ func warScreen(){
                     } else {
                         print("You attacked the \(enemyy.monsterName), you dealt 50pt of damage, use 15pt of MP")
                         
-                        if  enemyy.monsterHealth > 0 {
+                        if  enemyy.monsterHP > 0 {
                             warScreen()
                         } else {
                             print("You killed the monster. Great job!")
-                            enemyy.monsterHealth = 1000
+                            enemyy.monsterHP = 1000
                         }
                     }
                 } else{
@@ -289,7 +289,7 @@ func warScreen(){
             healingv2()
         case "5":
             print("Enemy Name:\(enemyy.monsterName)")
-            print("Enemy HP:\(enemyy.monsterHealth)")
+            print("Enemy HP:\(enemyy.monsterHP)")
             print("You also using 5pt of MP for scanning enemy")
             scanEnemy.useSKill(player: User, monster: enemyy)
         case "6":

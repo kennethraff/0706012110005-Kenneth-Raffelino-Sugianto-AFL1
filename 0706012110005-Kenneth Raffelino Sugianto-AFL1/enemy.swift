@@ -8,7 +8,7 @@
 import Foundation
 protocol enemy {
     func vsBoss(chance: Int)
-    func enemyTurn(player: user)
+    func enemyAttack(player: user)
     func enemyWin(player: user)
    
 }

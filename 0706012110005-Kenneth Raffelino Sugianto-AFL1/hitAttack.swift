@@ -19,6 +19,6 @@ class hitAttack: skill{
     
     override func useSKill(player: user, monster: monster) {
         super.useSKill(player: player, monster: monster)
-        monster.monsterHealth  -= damage
+        monster.monsterHP  -= damage
     }
 }

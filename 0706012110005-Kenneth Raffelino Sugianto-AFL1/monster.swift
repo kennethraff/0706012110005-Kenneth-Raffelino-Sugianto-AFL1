@@ -7,41 +7,41 @@
 
 import Foundation
 class monster: enemy {
-    var monsterAttack: Int
-    var monsterHealth: Int
+    var monsterHit: Int
+    var monsterHP: Int
     var monsterName: String
     var monsterType: String
     var monsterDescription = ""
     var printMonster: String {
         return """
             Monster : \(monsterName) \(monsterType)
-            Health : \(monsterHealth)
+            Health : \(monsterHP)
             """
     }
 
-    init(monsterAttack: Int, monsterHealth: Int, monsterName: String,monsterType: String, monsterDescription: String = "") {
-        self.monsterAttack = monsterAttack
-        self.monsterHealth = monsterHealth
+    init(monsterHit: Int, monsterHP: Int, monsterName: String,monsterType: String, monsterDescription: String = "") {
+        self.monsterHit = monsterHit
+        self.monsterHP = monsterHP
         self.monsterName = monsterName
         self.monsterType = monsterType
         self.monsterDescription = monsterDescription
     }
 
     func vsBoss(chance: Int) {
-        if chance > 75 {
-            monsterAttack = 15
-            monsterHealth = 2000
+        if chance > 90 {
+            monsterHit = 15
+            monsterHP = 2000
             monsterType = "[Boss]"
         } else {
-            monsterAttack = 10
-            monsterHealth = 500
+            monsterHit = 10
+            monsterHP = 500
             monsterType = "[Normal]"
         }
     }
 
-    func enemyTurn(player: user) {
-        print("The Enemy \(monsterName) \(monsterType) attack! It deals \(monsterAttack)")
-        User.userHP -= monsterAttack
+    func enemyAttack(player: user) {
+        print("The Enemy \(monsterName) \(monsterType) attack! It deals \(monsterHit)")
+        User.userHP -= monsterHit
     }
 
     func enemyWin(player: user) {
@@ -52,8 +52,5 @@ class monster: enemy {
 
     }
     
-    func enemyAttack(player: user){
-        User.userHP -= monsterAttack
-    }
 }
 
